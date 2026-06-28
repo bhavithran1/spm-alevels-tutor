@@ -81,7 +81,7 @@ export default function BulkDownloadBar({ selectedPapers, onClear, onAuthChange 
               </label>
             </div>
             <p className="text-xs text-gray-400 mb-5">
-              Files will be organised as: <span className="font-mono bg-gray-50 px-1 rounded">Component / Session / Year / filename.pdf</span>
+              Files will be organised as: <span className="font-mono bg-gray-50 px-1 rounded">Component / Variant / Year / filename.pdf</span>
             </p>
             <div className="flex gap-2">
               <button

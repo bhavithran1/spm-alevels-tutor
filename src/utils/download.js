@@ -5,20 +5,28 @@ function sanitize(str) {
   return str.replace(/[/\\?%*:|"<>]/g, '-').trim();
 }
 
-function sessionFolder(session) {
-  if (session === 'May/June') return 'M-J';
-  if (session === 'Oct/Nov') return 'O-N';
-  return sanitize(session);
+function componentFolder(paper) {
+  return sanitize(paper.paper.replace(/\s*\(v[1-3]\)\s*$/i, ''));
+}
+
+function variantFolder(paper) {
+  const paperVariant = paper.paper.match(/\(v([1-3])\)/i);
+  if (paperVariant) return `V${paperVariant[1]}`;
+
+  const codeVariant = String(paper.code || '').match(/^(?:9709|9231)\/\d([1-3])$/);
+  if (codeVariant) return `V${codeVariant[1]}`;
+
+  return 'No Variant';
 }
 
 function folderPath(paper, type) {
-  // Structure: Component/Session/Year/filename
-  const componentFolder = sanitize(paper.paper);
-  const session = sessionFolder(paper.session);
+  // Structure: Component/Variant/Year/filename
+  const component = componentFolder(paper);
+  const variant = variantFolder(paper);
   const yearFolder = String(paper.year);
   const boardShort = sanitize(paper.board);
   const filename = `${boardShort}_${paper.year}_${sanitize(paper.session)}_${sanitize(paper.paper)}_${type}.pdf`;
-  return `${componentFolder}/${session}/${yearFolder}/${filename}`;
+  return `${component}/${variant}/${yearFolder}/${filename}`;
 }
 
 async function fetchPdf(url) {
