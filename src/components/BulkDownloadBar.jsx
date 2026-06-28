@@ -3,7 +3,7 @@ import { getUser } from '../utils/auth';
 import { downloadPapersAsZip } from '../utils/download';
 import AuthModal from './AuthModal';
 
-export default function BulkDownloadBar({ selectedPapers, allPapers, onClear, onAuthChange }) {
+export default function BulkDownloadBar({ selectedPapers, onClear, onAuthChange }) {
   const [showAuth, setShowAuth] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [progress, setProgress] = useState(null);
@@ -81,7 +81,7 @@ export default function BulkDownloadBar({ selectedPapers, allPapers, onClear, on
               </label>
             </div>
             <p className="text-xs text-gray-400 mb-5">
-              Files will be organised as: <span className="font-mono bg-gray-50 px-1 rounded">PaperType / Year / filename.pdf</span>
+              Files will be organised as: <span className="font-mono bg-gray-50 px-1 rounded">Component / Session / Year / filename.pdf</span>
             </p>
             <div className="flex gap-2">
               <button

@@ -32,7 +32,7 @@ export default function PaperTable({ papers, selected, onToggle, onToggleAll }) 
           </tr>
         </thead>
         <tbody>
-          {papers.map((p, i) => (
+          {papers.map(p => (
             <tr
               key={p.id}
               className={`border-b border-gray-50 hover:bg-gray-50/60 transition-colors ${selected.has(p.id) ? 'bg-blue-50/40' : ''}`}

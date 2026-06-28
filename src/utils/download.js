@@ -5,13 +5,20 @@ function sanitize(str) {
   return str.replace(/[/\\?%*:|"<>]/g, '-').trim();
 }
 
+function sessionFolder(session) {
+  if (session === 'May/June') return 'M-J';
+  if (session === 'Oct/Nov') return 'O-N';
+  return sanitize(session);
+}
+
 function folderPath(paper, type) {
-  // Structure: PaperType/Year/filename
-  const paperFolder = sanitize(paper.paper);
+  // Structure: Component/Session/Year/filename
+  const componentFolder = sanitize(paper.paper);
+  const session = sessionFolder(paper.session);
   const yearFolder = String(paper.year);
   const boardShort = sanitize(paper.board);
   const filename = `${boardShort}_${paper.year}_${sanitize(paper.session)}_${sanitize(paper.paper)}_${type}.pdf`;
-  return `${paperFolder}/${yearFolder}/${filename}`;
+  return `${componentFolder}/${session}/${yearFolder}/${filename}`;
 }
 
 async function fetchPdf(url) {

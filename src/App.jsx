@@ -4,7 +4,7 @@ import YearGrid from './components/YearGrid';
 import PaperTable from './components/PaperTable';
 import BulkDownloadBar from './components/BulkDownloadBar';
 import QuickDownload from './components/QuickDownload';
-import { papers, filterPapers, BOARDS, SUBJECTS } from './data/papers';
+import { papers, filterPapers, BOARDS } from './data/papers';
 
 const SUBJECT_CARDS = [
   {
@@ -26,7 +26,7 @@ export default function App() {
   const [board, setBoard] = useState(null);
   const [activeYear, setActiveYear] = useState(null);
   const [selected, setSelected] = useState(new Set());
-  const [authTick, setAuthTick] = useState(0);
+  const [, setAuthTick] = useState(0);
 
   function selectSubject(s) {
     setSubject(s);
@@ -202,7 +202,6 @@ export default function App() {
 
       <BulkDownloadBar
         selectedPapers={selectedPapers}
-        allPapers={papers}
         onClear={() => setSelected(new Set())}
         onAuthChange={() => setAuthTick(t => t + 1)}
       />
