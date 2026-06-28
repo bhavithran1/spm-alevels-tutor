@@ -170,12 +170,87 @@ export const papers = [
   { board:'Cambridge (CIE)', subject:'Mathematics', year:2019, session:'May/June', paper:'Pure Mathematics 3 (P3)', code:'9709/32', qp:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-paper-3/', ms:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-paper-3/' },
 
   // ─── CAMBRIDGE (CIE) FURTHER MATHEMATICS (9231) ───────────────────────────
-  { board:'Cambridge (CIE)', subject:'Further Mathematics', year:2023, session:'May/June', paper:'Further Pure Mathematics 1', code:'9231/01', qp:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/', ms:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/' },
-  { board:'Cambridge (CIE)', subject:'Further Mathematics', year:2022, session:'May/June', paper:'Further Pure Mathematics 1', code:'9231/01', qp:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/', ms:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/' },
-  { board:'Cambridge (CIE)', subject:'Further Mathematics', year:2021, session:'May/June', paper:'Further Pure Mathematics 1', code:'9231/01', qp:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/', ms:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/' },
-  { board:'Cambridge (CIE)', subject:'Further Mathematics', year:2020, session:'Oct/Nov', paper:'Further Pure Mathematics 1', code:'9231/01', qp:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/', ms:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/' },
-  { board:'Cambridge (CIE)', subject:'Further Mathematics', year:2019, session:'May/June', paper:'Further Pure Mathematics 1', code:'9231/01', qp:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/', ms:'https://www.physicsandmathstutor.com/a-level-maths-papers/cie-further-pure-1/' },
+  // Generated programmatically below — direct PMT CDN PDFs
 ];
+
+const CAIE_FM = `${PMT}/CIE-Further/CAIE-Further`;
+const CIE_FM_OLD = `${PMT}/CIE-Further`;
+
+const cieFmNewSpec = [
+  { paper: 'Further Pure Mathematics 1', folder: 'Paper-1', codePrefix: '9231/1' },
+  { paper: 'Further Pure Mathematics 2', folder: 'Paper-2', codePrefix: '9231/2' },
+  { paper: 'Further Mechanics',          folder: 'Paper-3', codePrefix: '9231/3' },
+  { paper: 'Further Probability & Statistics', folder: 'Paper-4', codePrefix: '9231/4' },
+];
+
+const cieFmOldSpec = [
+  { paper: 'Further Pure Mathematics 1', folder: 'Paper-1', codePrefix: '9231/1' },
+  { paper: 'Further Pure Mathematics 2', folder: 'Paper-2', codePrefix: '9231/2' },
+];
+
+const cieFmVariants = [
+  { suffix: 'v1', codeSuffix: '1' },
+  { suffix: 'v2', codeSuffix: '2' },
+  { suffix: 'v3', codeSuffix: '3' },
+];
+
+const cieFmSessions = [
+  { label: 'May/June',  urlPrefix: 'June' },
+  { label: 'Oct/Nov',   urlPrefix: 'November' },
+];
+
+// New syllabus: 2020–2024, 4 papers, 3 variants, 2 sessions
+for (const yr of [2024, 2023, 2022, 2021, 2020]) {
+  for (const sess of cieFmSessions) {
+    for (const p of cieFmNewSpec) {
+      for (const v of cieFmVariants) {
+        const file = `${sess.urlPrefix}%20${yr}%20%28${v.suffix}%29`;
+        papers.push({
+          board: 'Cambridge (CIE)', subject: 'Further Mathematics', year: yr,
+          session: sess.label,
+          paper: `${p.paper} (${v.suffix})`,
+          code: `${p.codePrefix}${v.codeSuffix}`,
+          qp: `${CAIE_FM}/${p.folder}/QP/${file}%20QP.pdf`,
+          ms: `${CAIE_FM}/${p.folder}/MS/${file}%20MS.pdf`,
+        });
+      }
+    }
+  }
+}
+
+// Old syllabus: 2017–2019, 2 papers, 3 variants, 2 sessions (June 2016 doesn't exist, Nov 2016 does)
+for (const yr of [2019, 2018, 2017]) {
+  for (const sess of cieFmSessions) {
+    for (const p of cieFmOldSpec) {
+      for (const v of cieFmVariants) {
+        const file = `${sess.urlPrefix}%20${yr}%20%28${v.suffix}%29`;
+        papers.push({
+          board: 'Cambridge (CIE)', subject: 'Further Mathematics', year: yr,
+          session: sess.label,
+          paper: `${p.paper} (${v.suffix})`,
+          code: `${p.codePrefix}${v.codeSuffix}`,
+          qp: `${CIE_FM_OLD}/${p.folder}/QP/${file}%20QP.pdf`,
+          ms: `${CIE_FM_OLD}/${p.folder}/MS/${file}%20MS.pdf`,
+        });
+      }
+    }
+  }
+}
+
+// Nov 2016 old spec (June 2016 not available on PMT)
+for (const p of cieFmOldSpec) {
+  for (const v of cieFmVariants) {
+    const file = `November%202016%20%28${v.suffix}%29`;
+    papers.push({
+      board: 'Cambridge (CIE)', subject: 'Further Mathematics', year: 2016,
+      session: 'Oct/Nov',
+      paper: `${p.paper} (${v.suffix})`,
+      code: `${p.codePrefix}${v.codeSuffix}`,
+      qp: `${CIE_FM_OLD}/${p.folder}/QP/${file}%20QP.pdf`,
+      ms: `${CIE_FM_OLD}/${p.folder}/MS/${file}%20MS.pdf`,
+    });
+  }
+}
 
 papers.forEach((p, i) => { p.id = i; });
 
